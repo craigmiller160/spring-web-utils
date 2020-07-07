@@ -1,4 +1,4 @@
-package io.craigmiller160.oauth.utils.controller
+package io.craigmiller160.webutils.controller
 
 import org.hamcrest.CoreMatchers
 import org.hamcrest.MatcherAssert

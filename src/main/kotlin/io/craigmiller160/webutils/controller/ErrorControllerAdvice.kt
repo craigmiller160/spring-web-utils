@@ -1,6 +1,6 @@
-package io.craigmiller160.oauth.utils.controller
+package io.craigmiller160.webutils.controller
 
-import io.craigmiller160.oauth.utils.dto.ErrorResponse
+import io.craigmiller160.webutils.dto.ErrorResponse
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity

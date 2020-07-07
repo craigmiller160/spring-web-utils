@@ -1,4 +1,4 @@
-package io.craigmiller160.oauth.utils.dto
+package io.craigmiller160.webutils.dto
 
 import java.time.LocalDateTime
 

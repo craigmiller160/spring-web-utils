@@ -1,4 +1,4 @@
-package io.craigmiller160.oauth.utils.util
+package io.craigmiller160.webutils.util
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test

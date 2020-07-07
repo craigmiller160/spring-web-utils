@@ -1,4 +1,4 @@
-package io.craigmiller160.oauth.utils.util
+package io.craigmiller160.webutils.util
 
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
