@@ -15,8 +15,8 @@ import javax.annotation.PostConstruct
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-@Component
-@Aspect
+//@Component
+//@Aspect
 class ControllerLoggingAdvice {
 
     @PostConstruct
@@ -50,6 +50,11 @@ class ControllerLoggingAdvice {
         }
 
         return 200
+    }
+
+    @Before("execution(* * *(..)")
+    fun doStuff() { // TODO delete this
+        println("DO STUFF FROM LIB")
     }
 
     @Before("controllerPublicMethods()")
