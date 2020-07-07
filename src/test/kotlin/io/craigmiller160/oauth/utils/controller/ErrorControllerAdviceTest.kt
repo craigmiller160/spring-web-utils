@@ -12,6 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension
 import org.springframework.web.HttpMediaTypeNotSupportedException
 import org.springframework.web.HttpRequestMethodNotSupportedException
 import javax.servlet.http.HttpServletRequest
+import org.springframework.security.access.AccessDeniedException
 
 @ExtendWith(MockitoExtension::class)
 class ErrorControllerAdviceTest {
