@@ -8,6 +8,14 @@ import java.lang.Exception
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
+/**
+ * This needs to be added to an implementation of WebMvcConfigurer
+ *
+ * override fun addInterceptors(registry: InterceptorRegistry) {
+        registry.addInterceptor(requestLogger)
+            .addPathPatterns("/**/**")
+    }
+ */
 @Component
 class RequestLogger : HandlerInterceptorAdapter() {
 
