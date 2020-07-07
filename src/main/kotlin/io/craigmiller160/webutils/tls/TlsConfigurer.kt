@@ -1,4 +1,4 @@
-package io.craigmiller160.webutils.security
+package io.craigmiller160.webutils.tls
 
 import java.security.KeyStore
 import javax.net.ssl.HttpsURLConnection

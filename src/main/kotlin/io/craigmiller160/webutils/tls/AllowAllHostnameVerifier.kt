@@ -1,4 +1,4 @@
-package io.craigmiller160.webutils.security
+package io.craigmiller160.webutils.tls
 
 import javax.net.ssl.HostnameVerifier
 import javax.net.ssl.SSLSession
