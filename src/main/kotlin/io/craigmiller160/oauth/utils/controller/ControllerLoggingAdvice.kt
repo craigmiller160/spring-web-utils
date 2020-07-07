@@ -11,12 +11,18 @@ import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Component
 import org.springframework.web.context.request.RequestContextHolder
 import org.springframework.web.context.request.ServletRequestAttributes
+import javax.annotation.PostConstruct
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 @Component
 @Aspect
 class ControllerLoggingAdvice {
+
+    @PostConstruct
+    fun postConstruct() {
+        println("POST CONSTRUCT") // TODO delete this
+    }
 
     private val logger = LoggerFactory.getLogger(ControllerLoggingAdvice::class.java)
 
@@ -29,7 +35,7 @@ class ControllerLoggingAdvice {
 
     private fun handleNull(text: String?) = text ?: ""
 
-    @Pointcut("execution(public * io.craigmiller160.*.controller.*Controller.*(..))")
+    @Pointcut("execution(public * io.craigmiller160.authserver.controller.*Controller.*(..))")
     fun controllerPublicMethods() { }
 
     private fun getResponseStatus(result: Any?, joinPoint: JoinPoint): Int {
