@@ -17,9 +17,15 @@
         <java.version>11</java.version>
         <kotlin.version>1.3.72</kotlin.version>
         <nimbus.jose.version>8.4</nimbus.jose.version>
+        <legacy.date.converter.version>1.0.0</legacy.date.converter.version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>io.craigmiller160</groupId>
+            <artifactId>legacy-date-converter</artifactId>
+            <version>${legacy.date.converter.version}</version>
+        </dependency>
         <dependency>
             <groupId>com.nimbusds</groupId>
             <artifactId>nimbus-jose-jwt</artifactId>
