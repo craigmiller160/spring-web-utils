@@ -3,6 +3,7 @@ package io.craigmiller160.webutils.controller
 import io.craigmiller160.webutils.dto.ErrorResponse
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.springframework.beans.BeanInstantiationException
 import org.springframework.http.ResponseEntity
 import org.springframework.web.HttpMediaTypeNotSupportedException
 import org.springframework.web.HttpRequestMethodNotSupportedException
@@ -54,6 +55,21 @@ class ErrorControllerAdvice {
         val error = ErrorResponse(
                 status = status,
                 error = "Method Not Allowed",
+                message = ex.message ?: "",
+                path = req.requestURI
+        )
+        return ResponseEntity
+                .status(status)
+                .body(error)
+    }
+
+    @ExceptionHandler(BeanInstantiationException::class)
+    fun beanInstantiationException(req: HttpServletRequest, ex: BeanInstantiationException): ResponseEntity<ErrorResponse> {
+        log.error("", ex)
+        val status = 400
+        val error = ErrorResponse(
+                status = status,
+                error = "Bad Request",
                 message = ex.message ?: "",
                 path = req.requestURI
         )
