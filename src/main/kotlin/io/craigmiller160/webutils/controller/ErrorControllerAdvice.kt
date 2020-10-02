@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.ResponseStatus
 import javax.servlet.http.HttpServletRequest
 import org.springframework.security.access.AccessDeniedException
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException
 
 @ControllerAdvice
 class ErrorControllerAdvice {
@@ -65,6 +66,21 @@ class ErrorControllerAdvice {
 
     @ExceptionHandler(BeanInstantiationException::class)
     fun beanInstantiationException(req: HttpServletRequest, ex: BeanInstantiationException): ResponseEntity<ErrorResponse> {
+        log.error("", ex)
+        val status = 400
+        val error = ErrorResponse(
+                status = status,
+                error = "Bad Request",
+                message = ex.message ?: "",
+                path = req.requestURI
+        )
+        return ResponseEntity
+                .status(status)
+                .body(error)
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException::class)
+    fun methodArgumentTypeMismatchException(req: HttpServletRequest, ex: MethodArgumentTypeMismatchException): ResponseEntity<ErrorResponse> {
         log.error("", ex)
         val status = 400
         val error = ErrorResponse(
