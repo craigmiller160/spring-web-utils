@@ -22,16 +22,17 @@ import io.craigmiller160.webutils.dto.ErrorResponse
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.BeanInstantiationException
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.security.access.AccessDeniedException
 import org.springframework.web.HttpMediaTypeNotSupportedException
 import org.springframework.web.HttpRequestMethodNotSupportedException
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.ResponseStatus
-import javax.servlet.http.HttpServletRequest
-import org.springframework.security.access.AccessDeniedException
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException
 import javax.persistence.EntityNotFoundException
+import javax.servlet.http.HttpServletRequest
 
 @ControllerAdvice
 class ErrorControllerAdvice {
@@ -40,104 +41,51 @@ class ErrorControllerAdvice {
 
     @ExceptionHandler(AccessDeniedException::class)
     fun accessDeniedException(req: HttpServletRequest, ex: AccessDeniedException): ResponseEntity<ErrorResponse> {
-        log.error("", ex)
-        val status = 403
-        val error = ErrorResponse(
-                status = status,
-                error = "Access Denied",
-                message = ex.message ?: "",
-                path = req.requestURI
-        )
-        return ResponseEntity
-                .status(status)
-                .body(error)
+        return handleException(req, ex, HttpStatus.FORBIDDEN)
     }
 
     @ExceptionHandler(HttpMediaTypeNotSupportedException::class)
     fun mediaTypeNotSupportedException(req: HttpServletRequest, ex: HttpMediaTypeNotSupportedException): ResponseEntity<ErrorResponse> {
-        log.error("", ex)
-        val status = 415
-        val error = ErrorResponse(
-                status = status,
-                error = "Unsupported Media Type",
-                message = ex.message ?: "",
-                path = req.requestURI
-        )
-        return ResponseEntity
-                .status(status)
-                .body(error)
+        return handleException(req, ex, HttpStatus.UNSUPPORTED_MEDIA_TYPE)
     }
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException::class)
     fun methodNotSupportedException(req: HttpServletRequest, ex: HttpRequestMethodNotSupportedException): ResponseEntity<ErrorResponse> {
-        log.error("", ex)
-        val status = 405
-        val error = ErrorResponse(
-                status = status,
-                error = "Method Not Allowed",
-                message = ex.message ?: "",
-                path = req.requestURI
-        )
-        return ResponseEntity
-                .status(status)
-                .body(error)
+        return handleException(req, ex, HttpStatus.METHOD_NOT_ALLOWED)
     }
 
     @ExceptionHandler(BeanInstantiationException::class)
     fun beanInstantiationException(req: HttpServletRequest, ex: BeanInstantiationException): ResponseEntity<ErrorResponse> {
-        log.error("", ex)
-        val status = 400
-        val error = ErrorResponse(
-                status = status,
-                error = "Bad Request",
-                message = ex.message ?: "",
-                path = req.requestURI
-        )
-        return ResponseEntity
-                .status(status)
-                .body(error)
+        return handleException(req, ex, HttpStatus.BAD_REQUEST)
     }
 
     @ExceptionHandler(MethodArgumentTypeMismatchException::class)
     fun methodArgumentTypeMismatchException(req: HttpServletRequest, ex: MethodArgumentTypeMismatchException): ResponseEntity<ErrorResponse> {
-        log.error("", ex)
-        val status = 400
-        val error = ErrorResponse(
-                status = status,
-                error = "Bad Request",
-                message = ex.message ?: "",
-                path = req.requestURI
-        )
-        return ResponseEntity
-                .status(status)
-                .body(error)
+        return handleException(req, ex, HttpStatus.BAD_REQUEST)
     }
 
     @ExceptionHandler(EntityNotFoundException::class)
     fun entityNotFoundException(req: HttpServletRequest, ex: EntityNotFoundException): ResponseEntity<ErrorResponse> {
-        log.error("", ex)
-        val status = 400
-        val error = ErrorResponse(
-                status = status,
-                error = "Bad Request",
-                message = ex.message ?: "",
-                path = req.requestURI
-        )
-        return ResponseEntity
-                .status(status)
-                .body(error)
+        return handleException(req, ex, HttpStatus.BAD_REQUEST)
     }
 
     @ExceptionHandler(Exception::class)
     fun exception(req: HttpServletRequest, ex: Exception): ResponseEntity<ErrorResponse> {
-        log.error("", ex)
         val annotation = ex.javaClass.getAnnotation(ResponseStatus::class.java)
-        val status = annotation?.code?.value() ?: 500
+        val status = annotation?.code ?: HttpStatus.INTERNAL_SERVER_ERROR
+
+        return handleException(req, ex, status)
+    }
+
+    private fun handleException(req: HttpServletRequest, ex: Exception, status: HttpStatus, message: String? = null): ResponseEntity<ErrorResponse> {
+        log.error("", ex)
+        val errorMessage = "${message ?: "Error"} - ${ex.message ?: ""}"
         val error = ErrorResponse(
-                status = status,
-                error = annotation?.code?.reasonPhrase ?: "Internal Server Error",
-                message = "${annotation?.reason ?: "Error"} - ${ex.message}",
-                path = req.requestURI
+                status = status.value(),
+                error = status.reasonPhrase,
+                message = errorMessage,
+                path = req.requestURI,
+                method = req.method
         )
         return ResponseEntity
                 .status(status)
