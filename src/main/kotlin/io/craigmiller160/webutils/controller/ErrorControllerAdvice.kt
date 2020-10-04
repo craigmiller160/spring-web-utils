@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.ResponseStatus
 import javax.servlet.http.HttpServletRequest
 import org.springframework.security.access.AccessDeniedException
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException
+import javax.persistence.EntityNotFoundException
 
 @ControllerAdvice
 class ErrorControllerAdvice {
@@ -99,6 +100,21 @@ class ErrorControllerAdvice {
 
     @ExceptionHandler(MethodArgumentTypeMismatchException::class)
     fun methodArgumentTypeMismatchException(req: HttpServletRequest, ex: MethodArgumentTypeMismatchException): ResponseEntity<ErrorResponse> {
+        log.error("", ex)
+        val status = 400
+        val error = ErrorResponse(
+                status = status,
+                error = "Bad Request",
+                message = ex.message ?: "",
+                path = req.requestURI
+        )
+        return ResponseEntity
+                .status(status)
+                .body(error)
+    }
+
+    @ExceptionHandler(EntityNotFoundException::class)
+    fun entityNotFoundException(req: HttpServletRequest, ex: EntityNotFoundException): ResponseEntity<ErrorResponse> {
         log.error("", ex)
         val status = 400
         val error = ErrorResponse(
