@@ -58,7 +58,8 @@ class ErrorControllerAdviceTest {
                 hasProperty("error", equalTo("Bad Request")),
                 hasProperty("message", equalTo("Unsupported OAuth2 Grant Type - message")),
                 hasProperty("timestamp", notNullValue()),
-                hasProperty("path", equalTo("uri"))
+                hasProperty("path", equalTo("uri")),
+                hasProperty("method", equalTo("GET"))
         ))
     }
 
@@ -75,7 +76,8 @@ class ErrorControllerAdviceTest {
                 hasProperty("error", equalTo("Internal Server Error")),
                 hasProperty("message", equalTo("Error - message")),
                 hasProperty("timestamp", notNullValue()),
-                hasProperty("path", equalTo("uri"))
+                hasProperty("path", equalTo("uri")),
+                hasProperty("method", equalTo("GET"))
         ))
     }
 
@@ -93,7 +95,8 @@ class ErrorControllerAdviceTest {
                 hasProperty("error", equalTo("Forbidden")),
                 hasProperty("message", equalTo("Error - message")),
                 hasProperty("timestamp", notNullValue()),
-                hasProperty("path", equalTo("uri"))
+                hasProperty("path", equalTo("uri")),
+                hasProperty("method", equalTo("GET"))
         ))
     }
 
@@ -111,7 +114,8 @@ class ErrorControllerAdviceTest {
                 hasProperty("error", equalTo("Unsupported Media Type")),
                 hasProperty("message", equalTo("Error - message")),
                 hasProperty("timestamp", notNullValue()),
-                hasProperty("path", equalTo("uri"))
+                hasProperty("path", equalTo("uri")),
+                hasProperty("method", equalTo("GET"))
         ))
     }
 
@@ -129,7 +133,8 @@ class ErrorControllerAdviceTest {
                 hasProperty("error", equalTo("Method Not Allowed")),
                 hasProperty("message", equalTo("Error - message")),
                 hasProperty("timestamp", notNullValue()),
-                hasProperty("path", equalTo("uri"))
+                hasProperty("path", equalTo("uri")),
+                hasProperty("method", equalTo("GET"))
         ))
     }
 
