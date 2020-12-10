@@ -10,7 +10,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>io.craigmiller160</groupId>
-    <artifactId>web-utils</artifactId>
+    <artifactId>spring-web-utils</artifactId>
     <version>1.1.0-SNAPSHOT</version>
 
     <properties>

@@ -1,4 +1,4 @@
-# Web Utils
+# spring-web-utils
 
 This is a collection of utility code for Spring Boot webapps.
 
