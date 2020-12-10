@@ -30,15 +30,16 @@ import org.mockito.Mock
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
 import org.mockito.junit.jupiter.MockitoExtension
+import org.springframework.beans.BeanInstantiationException
 import org.springframework.web.HttpMediaTypeNotSupportedException
 import org.springframework.web.HttpRequestMethodNotSupportedException
 import javax.servlet.http.HttpServletRequest
 import org.springframework.security.access.AccessDeniedException
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException
+import javax.persistence.EntityNotFoundException
 
 @ExtendWith(MockitoExtension::class)
 class ErrorControllerAdviceTest {
-
-    // TODO add more tests for more methods
 
     @Mock
     private lateinit var req: HttpServletRequest
@@ -140,17 +141,59 @@ class ErrorControllerAdviceTest {
 
     @Test
     fun test_beanInstantiationException() {
-        TODO("Finish this")
+        `when`(req.requestURI).thenReturn("uri")
+        `when`(req.method).thenReturn("GET")
+        val ex = mock(BeanInstantiationException::class.java)
+        `when`(ex.message).thenReturn("message")
+
+        val error = errorControllerAdvice.beanInstantiationException(req, ex)
+        assertEquals(400, error.statusCodeValue)
+        assertThat(error.body, allOf(
+                hasProperty("status", equalTo(400)),
+                hasProperty("error", equalTo("Bad Request")),
+                hasProperty("message", equalTo("Error - message")),
+                hasProperty("timestamp", notNullValue()),
+                hasProperty("path", equalTo("uri")),
+                hasProperty("method", equalTo("GET"))
+        ))
     }
 
     @Test
     fun test_methodArgumentTypeMismatchException() {
-        TODO("Finish this")
+        `when`(req.requestURI).thenReturn("uri")
+        `when`(req.method).thenReturn("GET")
+        val ex = mock(MethodArgumentTypeMismatchException::class.java)
+        `when`(ex.message).thenReturn("message")
+
+        val error = errorControllerAdvice.methodArgumentTypeMismatchException(req, ex)
+        assertEquals(400, error.statusCodeValue)
+        assertThat(error.body, allOf(
+                hasProperty("status", equalTo(400)),
+                hasProperty("error", equalTo("Bad Request")),
+                hasProperty("message", equalTo("Error - message")),
+                hasProperty("timestamp", notNullValue()),
+                hasProperty("path", equalTo("uri")),
+                hasProperty("method", equalTo("GET"))
+        ))
     }
 
     @Test
     fun test_entityNotFoundException() {
-        TODO("Finish this")
+        `when`(req.requestURI).thenReturn("uri")
+        `when`(req.method).thenReturn("GET")
+        val ex = mock(EntityNotFoundException::class.java)
+        `when`(ex.message).thenReturn("message")
+
+        val error = errorControllerAdvice.entityNotFoundException(req, ex)
+        assertEquals(400, error.statusCodeValue)
+        assertThat(error.body, allOf(
+                hasProperty("status", equalTo(400)),
+                hasProperty("error", equalTo("Bad Request")),
+                hasProperty("message", equalTo("Error - message")),
+                hasProperty("timestamp", notNullValue()),
+                hasProperty("path", equalTo("uri")),
+                hasProperty("method", equalTo("GET"))
+        ))
     }
 
 }
