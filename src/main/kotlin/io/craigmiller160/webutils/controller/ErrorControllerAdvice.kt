@@ -71,10 +71,11 @@ class ErrorControllerAdvice {
 
     @ExceptionHandler(Exception::class)
     fun exception(req: HttpServletRequest, ex: Exception): ResponseEntity<ErrorResponse> {
-        val annotation = ex.javaClass.getAnnotation(ResponseStatus::class.java)
+        val annotation: ResponseStatus? = ex.javaClass.getAnnotation(ResponseStatus::class.java)
         val status = annotation?.code ?: HttpStatus.INTERNAL_SERVER_ERROR
+        val message = annotation?.reason
 
-        return handleException(req, ex, status)
+        return handleException(req, ex, status, message)
     }
 
     private fun handleException(req: HttpServletRequest, ex: Exception, status: HttpStatus, message: String? = null): ResponseEntity<ErrorResponse> {
