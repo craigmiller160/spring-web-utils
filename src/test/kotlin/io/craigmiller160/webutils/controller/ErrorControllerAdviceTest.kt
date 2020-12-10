@@ -90,8 +90,8 @@ class ErrorControllerAdviceTest {
         assertEquals(403, error.statusCodeValue)
         assertThat(error.body, allOf(
                 hasProperty("status", equalTo(403)),
-                hasProperty("error", equalTo("Access Denied")),
-                hasProperty("message", equalTo("message")),
+                hasProperty("error", equalTo("Forbidden")),
+                hasProperty("message", equalTo("Error - message")),
                 hasProperty("timestamp", notNullValue()),
                 hasProperty("path", equalTo("uri"))
         ))
@@ -109,7 +109,7 @@ class ErrorControllerAdviceTest {
         assertThat(error.body, allOf(
                 hasProperty("status", equalTo(415)),
                 hasProperty("error", equalTo("Unsupported Media Type")),
-                hasProperty("message", equalTo("message")),
+                hasProperty("message", equalTo("Error - message")),
                 hasProperty("timestamp", notNullValue()),
                 hasProperty("path", equalTo("uri"))
         ))
@@ -127,7 +127,7 @@ class ErrorControllerAdviceTest {
         assertThat(error.body, allOf(
                 hasProperty("status", equalTo(405)),
                 hasProperty("error", equalTo("Method Not Allowed")),
-                hasProperty("message", equalTo("message")),
+                hasProperty("message", equalTo("Error - message")),
                 hasProperty("timestamp", notNullValue()),
                 hasProperty("path", equalTo("uri"))
         ))
