@@ -133,4 +133,19 @@ class ErrorControllerAdviceTest {
         ))
     }
 
+    @Test
+    fun test_beanInstantiationException() {
+        TODO("Finish this")
+    }
+
+    @Test
+    fun test_methodArgumentTypeMismatchException() {
+        TODO("Finish this")
+    }
+
+    @Test
+    fun test_entityNotFoundException() {
+        TODO("Finish this")
+    }
+
 }
