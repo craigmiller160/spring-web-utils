@@ -40,6 +40,20 @@ The `ErrorControllerAdvice` class provides some very robust error handling for R
 
 The `RequestLogger` will log all requests and responses to the API. These will all be logged at the `DEBUG` logging level.
 
+To add the logger, it must be configured in the consuming project:
+
+```
+@Configuration
+class WebConfig (
+        private val requestLogger: RequestLogger
+) : WebMvcConfigurer {
+    override fun addInterceptors(registry: InterceptorRegistry) {
+        registry.addInterceptor(requestLogger)
+                .addPathPatterns("/**")
+    }
+}
+```
+
 ### TLS Configuration
 
 When needing to make API requests to other services that use unknown certificates, a new TrustStore will need to be added to the global SSLContext. The TlsConfigurer will do this by passing in some simple parameters:
