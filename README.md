@@ -38,7 +38,7 @@ The `ErrorControllerAdvice` class provides some very robust error handling for R
 
 ### Request Logging
 
-The `RequestLogger` will log all requests and responses to the API. These will all be logged at the `DEBUG` logging level.
+The `RequestLogger` will log all requests and responses to the API.
 
 To add the logger, it must be configured in the consuming project:
 

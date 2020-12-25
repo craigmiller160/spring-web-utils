@@ -50,7 +50,7 @@ class RequestLogger : HandlerInterceptorAdapter() {
         val uri = request.requestURI
         val method = request.method
         val status = response.status
-        log.debug("Response: $status $method $uri")
+        log.info("Response: $status $method $uri")
     }
 
 }
