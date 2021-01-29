@@ -11,7 +11,7 @@
     </parent>
     <groupId>io.craigmiller160</groupId>
     <artifactId>spring-web-utils</artifactId>
-    <version>1.1.1</version>
+    <version>1.1.2</version>
 
     <properties>
         <java.version>11</java.version>
@@ -23,12 +23,12 @@
         <repository>
             <id>nexus</id>
             <name>Releases</name>
-            <url>http://craigpc:30003/repository/maven-releases</url>
+            <url>https://craigmiller160.ddns.net:30003/repository/maven-releases</url>
         </repository>
         <snapshotRepository>
             <id>nexus</id>
             <name>Snapshot</name>
-            <url>http://craigpc:30003/repository/maven-snapshots</url>
+            <url>https://craigmiller160.ddns.net:30003/repository/maven-snapshots</url>
         </snapshotRepository>
     </distributionManagement>
 
