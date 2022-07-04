@@ -42,7 +42,8 @@ class RequestLogger : HandlerInterceptorAdapter() {
     override fun preHandle(request: HttpServletRequest, response: HttpServletResponse, handler: Any): Boolean {
         val uri = request.requestURI
         val method = request.method
-        log.debug("Request: $method $uri")
+        val query = request.queryString
+        log.debug("Request: $method $uri?$query")
         return true
     }
 
@@ -50,7 +51,8 @@ class RequestLogger : HandlerInterceptorAdapter() {
         val uri = request.requestURI
         val method = request.method
         val status = response.status
-        log.info("Response: $status $method $uri")
+        val query = request.queryString
+        log.info("Response: $status $method $uri?$query")
     }
 
 }
