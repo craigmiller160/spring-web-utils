@@ -33,10 +33,10 @@ import org.mockito.junit.jupiter.MockitoExtension
 import org.springframework.beans.BeanInstantiationException
 import org.springframework.web.HttpMediaTypeNotSupportedException
 import org.springframework.web.HttpRequestMethodNotSupportedException
-import javax.servlet.http.HttpServletRequest
+import jakarta.servlet.http.HttpServletRequest
 import org.springframework.security.access.AccessDeniedException
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException
-import javax.persistence.EntityNotFoundException
+import jakarta.persistence.EntityNotFoundException
 
 @ExtendWith(MockitoExtension::class)
 class ErrorControllerAdviceTest {
