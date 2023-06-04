@@ -27,7 +27,7 @@
 
     <properties>
         <java.version>11</java.version>
-        <kotlin.version>1.6.10</kotlin.version>
+        <kotlin.version>1.8.21</kotlin.version>
         <nimbus.jose.version>9.15.2</nimbus.jose.version>
     </properties>
 
