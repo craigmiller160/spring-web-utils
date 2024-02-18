@@ -25,7 +25,7 @@ import javax.net.ssl.TrustManagerFactory
 
 object TlsConfigurer {
 
-    fun configureTlsTrustStore(path: String, type: String, password: String) {
+    fun configureTlsTrustStore(path: String, type: String, password: String, disableHostnameCheck: Boolean = false) {
         val trustManagerFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm())
 
         val trustStore = KeyStore.getInstance(type)
@@ -39,7 +39,9 @@ object TlsConfigurer {
         sslContext.init(null, trustManagers, null)
         SSLContext.setDefault(sslContext)
 
-        HttpsURLConnection.setDefaultHostnameVerifier(AllowAllHostnameVerifier())
+        if (disableHostnameCheck) {
+            HttpsURLConnection.setDefaultHostnameVerifier(AllowAllHostnameVerifier())
+        }
     }
 
 }
